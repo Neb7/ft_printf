@@ -1,11 +1,15 @@
-SRCS		= ft_printf.c \
+SRC			= ft_printf.c \
 			  ft_printf_utils.c \
 			  ft_printf_put.c \
 			  ft_itoa_base.c \
 			  ft_putnbrstr.c \
 			  ft_printf_calloc.c
 
-OBJS		= ${SRCS:.c=.o}
+SRCS_DIR	= srcs/
+SRCS		= $(addprefix ${SRCS_DIR}, ${SRC})
+
+OBJS_DIR	= objets/
+OBJS		= $(addprefix ${OBJS_DIR}, ${SRC:.c=.o})
 
 NAME		= libftprintf.a
 RM			= rm -f
@@ -25,8 +29,8 @@ RESET		= \033[0m
 
 all:			${NAME}
 
-.c.o:
-				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -g
+${OBJS_DIR}%.o: ${SRCS_DIR}%.c | ${OBJS_DIR}
+				@${CC} ${CFLAGS} -c $< -o $@
 
 bonus:			${NAME}
 
@@ -39,6 +43,7 @@ ${OBJS_DIR}:
 
 clean:
 				@${RM} ${OBJS}
+				@${RM} -r ${OBJS_DIR}
 				@echo "${RED}'${NAME}' objects are deleted !${RESET}"
 
 fclean:			clean
