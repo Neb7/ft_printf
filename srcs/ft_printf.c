@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:47:22 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/01 15:22:38 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:06:54 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ static int	ft_define_arg(va_list lst, char c, t_flags *flags)
 		return (ft_putnbrstr(ft_itoa_base(va_arg(lst, unsigned int), \
 		"0123456789x", flags), flags));
 	else if (c == 'x')
-		return (ft_putnbrstr(ft_itoa_base(va_arg(lst, unsigned int), \
+		return (ft_putnbr_hex(ft_itoa_base(va_arg(lst, unsigned int), \
 		"0123456789abcdefx", flags), flags));
 	else if (c == 'X')
-		return (ft_putnbrstr(ft_itoa_base(va_arg(lst, unsigned int), \
+		return (ft_putnbr_hex(ft_itoa_base(va_arg(lst, unsigned int), \
 		"0123456789ABCDEFX", flags), flags));
 	else if (c == '%')
 		return (write(1, "%", 1));

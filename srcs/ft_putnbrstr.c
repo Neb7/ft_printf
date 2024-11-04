@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:52:18 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/01 15:44:24 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:09:48 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_putnbrstr(char *str, t_flags *flags)
 	if (flags->zero)
 		flags->s[0] = '0';
 	len_str = ft_printf_strlen(str);
-	if (flags->negatif)
+	if (flags->negatif && flags->zero)
 		write(1, str, 1);
 	if (flags->moins)
 		ret = ret + ft_write_str(str, len_str, flags);
@@ -48,6 +48,8 @@ static int	ft_write_str(char *str, int len_str, t_flags *flags)
 	int	j;
 	int	ret;
 
+	if (flags->negatif && !flags->zero)
+		write(1, str, 1);
 	ret = 0;
 	j = -1;
 	if (flags->max != -1 && flags->max > len_str - flags->negatif)
@@ -57,3 +59,39 @@ static int	ft_write_str(char *str, int len_str, t_flags *flags)
 	ret = ret + len_str;
 	return (ret);
 }
+/*
+static int	ft_write_zero(char *str, int len_str, t_flags *flags)
+{
+	int	j;
+	int	ret;
+	int	have_zero;
+
+	have_zero = 0;
+	if (!flags->zero && flags->negatif)
+		have_zero = 1;
+	ret = 0;
+	j = -1;
+	if (flags->max != -1 && flags->max > len_str - flags->negatif)
+		while (++j < flags->max + flags->negatif - len_str)
+			ret = ret + write(1, flags->s, 1);
+	write(1, &str[flags->negatif - have_zero], len_str - \
+	(flags->negatif - have_zero));
+	ret = ret + len_str;
+	return (ret);
+}
+
+static int	ft_write_space(char *str, int len_str, t_flags *flags)
+{
+	int	j;
+	int	ret;
+
+	ret = 0;
+	j = -1;
+	if (flags->max != -1 && flags->max > len_str - flags->negatif)
+		while (++j < flags->max + flags->negatif - len_str)
+			ret = ret + write(1, "0", 1);
+	write(1, &str[flags->negatif], len_str - flags->negatif);
+	ret = ret + len_str;
+	return (ret);
+}
+*/

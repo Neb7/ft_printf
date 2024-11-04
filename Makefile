@@ -3,7 +3,8 @@ SRC			= ft_printf.c \
 			  ft_printf_put.c \
 			  ft_itoa_base.c \
 			  ft_putnbrstr.c \
-			  ft_printf_calloc.c
+			  ft_printf_calloc.c \
+			  ft_putnbr_hex.c
 
 SRCS_DIR	= srcs/
 SRCS		= $(addprefix ${SRCS_DIR}, ${SRC})
@@ -13,7 +14,8 @@ OBJS		= $(addprefix ${OBJS_DIR}, ${SRC:.c=.o})
 
 NAME		= libftprintf.a
 RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror
+INCLUDES	= -I .
+CFLAGS		= -Wall -Wextra -Werror ${INCLUDES}
 CC			= cc
 
 #Colors

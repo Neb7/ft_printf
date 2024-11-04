@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:52:35 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/01 16:03:42 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:13:51 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	ft_printf_putstr(char *str, t_flags *flags)
 		write(1, str, i);
 	if (flags->min != -1 && flags->min > i)
 	{
-		if (flags->max > i)
-			j = flags->max - 1;
-		else
-			j = i - 1;
+		j = i - 1;
 		while (++j < flags->min)
 			ret = ret + write(1, flags->s, 1);
 	}
