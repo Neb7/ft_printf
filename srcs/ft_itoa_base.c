@@ -18,6 +18,8 @@ static char	*ft_n_positif(long int n, char *base, int i, \
 unsigned int len_base);
 static int	ft_len_d(long int n, t_flags *flags, unsigned int len_base);
 
+/*Transforme un long int en un char * en une base donné*/
+
 char	*ft_itoa_base(long int n, char *base, t_flags *flags)
 {
 	char	*d;

@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:52:18 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/04 11:09:48 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:13:43 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	ft_putnbrstr(char *str, t_flags *flags)
 	if (flags->zero)
 		flags->s[0] = '0';
 	len_str = ft_printf_strlen(str);
-	if (flags->negatif && flags->zero)
+	if ((flags->negatif && flags->zero) || (flags->plus && flags->zero))
 		write(1, str, 1);
 	if (flags->moins)
 		ret = ret + ft_write_str(str, len_str, flags);
 	if (flags->min != -1 && (flags->min > len_str || flags->min > flags->max))
 	{
 		if (flags->max > len_str)
-			j = flags->max - 1;
+			j = flags->max + flags->plus - 1;
 		else
 			j = len_str - 1;
 		while (++j < flags->min)
@@ -48,14 +48,17 @@ static int	ft_write_str(char *str, int len_str, t_flags *flags)
 	int	j;
 	int	ret;
 
-	if (flags->negatif && !flags->zero)
-		write(1, str, 1);
+	if ((flags->negatif && !flags->zero) || (flags->plus) || (flags->space))
+		write(1, str, flags->negatif + flags->space + flags->plus);
 	ret = 0;
 	j = -1;
-	if (flags->max != -1 && flags->max > len_str - flags->negatif)
-		while (++j < flags->max + flags->negatif - len_str)
+	if (flags->max != -1 && flags->max > len_str - flags->negatif - \
+	flags->plus - flags->space)
+		while (++j < flags->max + flags->negatif + flags->plus + \
+		flags->space - len_str)
 			ret = ret + write(1, "0", 1);
-	write(1, &str[flags->negatif], len_str - flags->negatif);
+	write(1, &str[flags->negatif + flags->plus + flags->space], len_str - \
+	(flags->negatif + flags->plus + flags->space));
 	ret = ret + len_str;
 	return (ret);
 }

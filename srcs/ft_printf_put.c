@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+static int	ft_putnil(char *str, t_flags *flags, int len);
 static int	ft_putnull(char *str, t_flags *flags, int len);
 
 int	ft_printf_putchar(int c, t_flags *flags)
@@ -62,7 +63,7 @@ int	ft_printf_putptr(void *ptr, t_flags *flags)
 	int					len;
 
 	if (!ptr)
-		return (ft_putnull(PTRNULL, flags, ft_printf_strlen(PTRNULL)));
+		return (ft_putnil(PTRNULL, flags, ft_printf_strlen(PTRNULL)));
 	a = (unsigned long int)ptr;
 	len = ft_len_a(a, 0, 16) + 2;
 	buf[0] = '0';
@@ -79,7 +80,7 @@ int	ft_printf_putptr(void *ptr, t_flags *flags)
 	return (ft_printf_putstr(buf, flags));
 }
 
-static int	ft_putnull(char *str, t_flags *flags, int len)
+static int	ft_putnil(char *str, t_flags *flags, int len)
 {
 	int	j;
 	int	ret;
@@ -88,38 +89,32 @@ static int	ft_putnull(char *str, t_flags *flags, int len)
 	ret = len;
 	if (flags->moins)
 		write(1, str, len);
-	if (flags->max != -1 && flags->max > len)
-		while (++j < flags->max - len)
+	if (flags->min != -1 && flags->min > len)
+		while (++j < flags->min - len)
 			ret = ret + write(1, flags->s, 1);
 	if (!flags->moins)
 		write(1, str, len);
 	return (ret);
 }
 
-/*
-int	ft_putnbr_base(long int n, char *base)
+static int	ft_putnull(char *str, t_flags *flags, int len)
 {
-	long unsigned int	nb;
-	long unsigned int	len;
-	unsigned int		signe;
-	int					len_buf;
-	
-	signe  = 0;
-	len = (long unsigned int)ft_printf_strlen(base);
-	if (n < 0)
-	{
-		ft_printf_putchar('-');
-		nb = -n;
-		signe++;
-	}
-	else
-		nb = n;
-	len_buf = ft_len_a(nb, 0, len) + signe;
-	if (nb > len - 1)
-	{
-		ft_putnbr_base((long int)(nb / len), base);
-		nb = nb % len;
-	}
-	ft_printf_putchar(base[nb]);
-	return (len_buf);
-}*/
+	int	j;
+	int	ret;
+
+	j = -1;
+	ret = len;
+	if (flags->moins && flags->max >= len)
+		write(1, str, len);
+	if (flags->min != -1 && flags->min > len && flags->max >= len)
+		while (++j < flags->min - len)
+			ret = ret + write(1, flags->s, 1);
+	else if (flags->max != -1 && flags->max < len && flags->min != -1)
+		while (++j < flags->min)
+			ret = ret + write(1, flags->s, 1);
+	if (!flags->moins && flags-> max >= len)
+		write(1, str, len);
+	if (!(flags-> max >= len))
+		ret = ret - len;
+	return (ret);
+}
