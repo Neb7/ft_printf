@@ -14,7 +14,7 @@ OBJS		= $(addprefix ${OBJS_DIR}, ${SRC:.c=.o})
 
 NAME		= libftprintf.a
 RM			= rm -f
-INCLUDES	= -I .
+INCLUDES	= -I ./includes/
 CFLAGS		= -Wall -Wextra -Werror ${INCLUDES}
 CC			= cc
 

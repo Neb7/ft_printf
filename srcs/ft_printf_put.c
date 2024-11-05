@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:52:35 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/04 11:13:51 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:21:38 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int	ft_putnull(char *str, t_flags *flags, int len)
 
 	j = -1;
 	ret = len;
-	if (flags->moins && flags->max >= len)
+	if (flags->moins && (flags->max >= len || flags->max == -1))
 		write(1, str, len);
 	if (flags->min != -1 && flags->min > len && flags->max >= len)
 		while (++j < flags->min - len)
@@ -112,9 +112,9 @@ static int	ft_putnull(char *str, t_flags *flags, int len)
 	else if (flags->max != -1 && flags->max < len && flags->min != -1)
 		while (++j < flags->min)
 			ret = ret + write(1, flags->s, 1);
-	if (!flags->moins && flags-> max >= len)
+	if (!flags->moins && (flags-> max >= len || flags->max == -1))
 		write(1, str, len);
-	if (!(flags-> max >= len))
+	if (!(flags-> max >= len) && flags->max != -1)
 		ret = ret - len;
 	return (ret);
 }
