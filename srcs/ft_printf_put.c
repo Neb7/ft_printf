@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:52:35 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/05 11:21:38 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:51:58 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_putnil(char *str, t_flags *flags, int len);
 static int	ft_putnull(char *str, t_flags *flags, int len);
 
+/*Putchar avec les flags*/
 int	ft_printf_putchar(int c, t_flags *flags)
 {
 	int	i;
@@ -30,6 +31,7 @@ int	ft_printf_putchar(int c, t_flags *flags)
 	return (i);
 }
 
+/*Putstr avec les flags*/
 int	ft_printf_putstr(char *str, t_flags *flags)
 {
 	int	i;
@@ -56,6 +58,7 @@ int	ft_printf_putstr(char *str, t_flags *flags)
 	return (ret);
 }
 
+/*Affiche l'adresse du pointer 'ptr' en hexadecimal en appliquant les flags*/
 int	ft_printf_putptr(void *ptr, t_flags *flags)
 {
 	unsigned long int	a;

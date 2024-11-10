@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 16:51:27 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/10 11:35:07 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:17:52 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ unsigned int len_base);
 static int	ft_len_d(long int n, t_flags *flags, unsigned int len_base);
 
 /*Transforme un long int en un char * en une base donné*/
-
 char	*ft_itoa_base(long int n, char *base, t_flags *flags)
 {
 	char	*d;
@@ -45,7 +44,7 @@ char	*ft_itoa_base(long int n, char *base, t_flags *flags)
 		ft_add_flags(d, flags, base, n);
 	}
 	if (n < 0)
-		flags->negatif = true;
+		ft_put_flags_negatif(flags);
 	return (d);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_calloc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:31:06 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/01 13:33:41 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:16:48 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ static void	ft_bzero(void *s, size_t n)
 			j++;
 		}
 	}
+}
+
+void	ft_put_flags_negatif(t_flags *flags)
+{
+	flags->negatif = true;
+	flags->plus = false;
+	flags->space = false;
 }

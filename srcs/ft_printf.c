@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:47:22 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/04 11:06:54 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:41:22 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ static int	ft_define_arg(va_list lst, char c, t_flags *flags);
 static void	ft_check_flags(char *str, int *i, t_flags *flags);
 static void	ft_init_flags(t_flags *flags);
 
+/*Comme printf*/
 int	ft_printf(const char *str, ...)
 {
 	int		ret;
 	va_list	lst;
 
 	if (!str)
-		return (0);
+		return (-1);
 	va_start(lst, str);
 	ret = ft_check_str((char *)str, lst, 0);
 	va_end(lst);
 	return (ret);
 }
 
+/*Parsing de str*/
 static int	ft_check_str(char *str, va_list lst, int ret)
 {
 	int		i;
@@ -53,6 +55,7 @@ static int	ft_check_str(char *str, va_list lst, int ret)
 	return (ret);
 }
 
+/*Vérifie les flags*/
 static void	ft_check_flags(char *str, int *i, t_flags *flags)
 {
 	ft_init_flags(flags);
@@ -80,6 +83,7 @@ static void	ft_check_flags(char *str, int *i, t_flags *flags)
 	ft_verif_flags(flags);
 }
 
+/*Arffiche les arguments selon le caractère de str donné*/
 static int	ft_define_arg(va_list lst, char c, t_flags *flags)
 {
 	if (c == 'c')
@@ -105,6 +109,7 @@ static int	ft_define_arg(va_list lst, char c, t_flags *flags)
 	return (0);
 }
 
+/*Réinnitiale la structure t_flags*/
 static void	ft_init_flags(t_flags *flags)
 {
 	flags->dieze = false;

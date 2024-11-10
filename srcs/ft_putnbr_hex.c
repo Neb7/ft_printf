@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:55:05 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/04 12:01:11 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:43:50 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	ft_write_str_hex(char *str, int len_str, t_flags *flags);
 
+/*Affiche le nombre 'str' (qui est en base 16) placer en paramètre en fonction
+des flags*/
 int	ft_putnbr_hex(char *str, t_flags *flags)
 {
 	int	len_str;

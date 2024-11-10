@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbrstr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:52:18 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/04 13:13:43 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:39:35 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	ft_write_str(char *str, int len_str, t_flags *flags);
 
+/*Affiche le nombre 'str' (qui est en base 10) placer en paramètre en fonction
+des flags*/
 int	ft_putnbrstr(char *str, t_flags *flags)
 {
 	int	len_str;
@@ -31,7 +33,7 @@ int	ft_putnbrstr(char *str, t_flags *flags)
 	if (flags->min != -1 && (flags->min > len_str || flags->min > flags->max))
 	{
 		if (flags->max > len_str)
-			j = flags->max + flags->plus - 1;
+			j = flags->max + flags->plus + flags->negatif + flags->space - 1;
 		else
 			j = len_str - 1;
 		while (++j < flags->min)
@@ -49,7 +51,7 @@ static int	ft_write_str(char *str, int len_str, t_flags *flags)
 	int	ret;
 
 	if ((flags->negatif && !flags->zero) || (flags->plus) || (flags->space))
-		write(1, str, flags->negatif + flags->space + flags->plus);
+		write(1, str, 1);
 	ret = 0;
 	j = -1;
 	if (flags->max != -1 && flags->max > len_str - flags->negatif - \
@@ -62,39 +64,3 @@ static int	ft_write_str(char *str, int len_str, t_flags *flags)
 	ret = ret + len_str;
 	return (ret);
 }
-/*
-static int	ft_write_zero(char *str, int len_str, t_flags *flags)
-{
-	int	j;
-	int	ret;
-	int	have_zero;
-
-	have_zero = 0;
-	if (!flags->zero && flags->negatif)
-		have_zero = 1;
-	ret = 0;
-	j = -1;
-	if (flags->max != -1 && flags->max > len_str - flags->negatif)
-		while (++j < flags->max + flags->negatif - len_str)
-			ret = ret + write(1, flags->s, 1);
-	write(1, &str[flags->negatif - have_zero], len_str - \
-	(flags->negatif - have_zero));
-	ret = ret + len_str;
-	return (ret);
-}
-
-static int	ft_write_space(char *str, int len_str, t_flags *flags)
-{
-	int	j;
-	int	ret;
-
-	ret = 0;
-	j = -1;
-	if (flags->max != -1 && flags->max > len_str - flags->negatif)
-		while (++j < flags->max + flags->negatif - len_str)
-			ret = ret + write(1, "0", 1);
-	write(1, &str[flags->negatif], len_str - flags->negatif);
-	ret = ret + len_str;
-	return (ret);
-}
-*/

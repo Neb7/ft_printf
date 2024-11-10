@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: benpicar <benpicar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:55:19 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/05 12:00:41 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:18:11 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		ft_putnbrstr(char *str, t_flags *flags);
 /*ft_printf_calloc.c*/
 
 void	*ft_printf_calloc(size_t nmemb, size_t size);
+void	ft_put_flags_negatif(t_flags *flags);
 
 /*ft_putnbr_hex*/
 
