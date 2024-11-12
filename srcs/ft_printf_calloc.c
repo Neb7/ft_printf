@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:31:06 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:16:48 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:36:32 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,21 @@ void	ft_put_flags_negatif(t_flags *flags)
 	flags->negatif = true;
 	flags->plus = false;
 	flags->space = false;
+}
+
+int	ft_test_char(char *str, int *j)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strchar("0 -+#", str[i]) != -1)
+		i++;
+	while (ft_strchar("0123456789.", str[i]) != -1)
+		i++;
+	if (ft_strchar("cspdiuxX%", str[i]) < 0)
+	{
+		*j = i + 1;
+		return (-1);
+	}
+	return (0);
 }

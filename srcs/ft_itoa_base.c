@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 16:51:27 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/06 17:17:52 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:38:32 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char	*ft_itoa_base(long int n, char *base, t_flags *flags)
 	len_d = ft_len_d(n, flags, len_base);
 	if (n == 0)
 	{
-		if (flags->plus || flags->space)
+		if ((flags->plus || flags->space) && flags->max == -1)
 			len_d++;
-		if (flags->max != -1)
+		if (flags->max != -1 && !flags->plus && !flags->space)
 			return ((char *)ft_printf_calloc(1, sizeof(char)));
 		d = (char *)malloc(sizeof(char) * len_d);
 		if (!d)
@@ -50,11 +50,16 @@ char	*ft_itoa_base(long int n, char *base, t_flags *flags)
 
 static void	ft_plus_space(char *d, t_flags *flags, int len_d)
 {
-	if (flags->plus)
+	if (flags->plus && flags->max == -1)
 		d[len_d - 3] = '+';
-	else if (flags->space)
+	else if (flags->space && flags->max == -1)
 		d[len_d - 3] = ' ';
-	d[len_d - 2] = '0';
+	if (flags->plus && flags->max != -1)
+		d[len_d - 2] = '+';
+	else if (flags->space && flags->max != -1)
+		d[len_d - 2] = ' ';
+	else
+		d[len_d - 2] = '0';
 	d[len_d - 1] = 0;
 }
 

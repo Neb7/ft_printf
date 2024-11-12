@@ -6,13 +6,13 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:47:22 by benpicar          #+#    #+#             */
-/*   Updated: 2024/11/06 15:41:22 by benpicar         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:41:53 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_check_str(char *str, va_list lst, int ret);
+static int	ft_check_str(char *str, va_list lst, int ret, int j);
 static int	ft_define_arg(va_list lst, char c, t_flags *flags);
 static void	ft_check_flags(char *str, int *i, t_flags *flags);
 static void	ft_init_flags(t_flags *flags);
@@ -26,13 +26,13 @@ int	ft_printf(const char *str, ...)
 	if (!str)
 		return (-1);
 	va_start(lst, str);
-	ret = ft_check_str((char *)str, lst, 0);
+	ret = ft_check_str((char *)str, lst, 0, 1);
 	va_end(lst);
 	return (ret);
 }
 
 /*Parsing de str*/
-static int	ft_check_str(char *str, va_list lst, int ret)
+static int	ft_check_str(char *str, va_list lst, int ret, int j)
 {
 	int		i;
 	t_flags	flags;
@@ -41,14 +41,19 @@ static int	ft_check_str(char *str, va_list lst, int ret)
 	while (str[i] != '\0')
 	{
 		if (str[i] != '%')
-		{
 			ret = ret + write(1, &str[i], 1);
-		}
 		else
 		{
 			i++;
-			ft_check_flags(str, &i, &flags);
-			ret = ret + ft_define_arg(lst, str[i], &flags);
+			if (!str[i])
+				return (-1);
+			else if (ft_test_char(&str[i], &j))
+				ret = ret + write(1, &str[i - 1], j);
+			else
+			{
+				ft_check_flags(str, &i, &flags);
+				ret = ret + ft_define_arg(lst, str[i], &flags);
+			}
 		}
 		i++;
 	}
